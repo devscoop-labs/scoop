@@ -17,7 +17,8 @@ Write-Host ""
 Write-Host "[+] Installing Scoop core and default bucket..." -ForegroundColor White
 irm https://raw.githubusercontent.com/devscoop-labs/scoop/main/install.ps1 | iex
 
-Write-Host "[+] bucket add..." -ForegroundColor White
+Write-Host "[+] install git and bucket add..." -ForegroundColor White
+scoop install git
 scoop bucket add dev-bucket https://github.com/devscoop-labs/scoop
 
 Write-Host "[+] Installing devscoop-wire packages..." -ForegroundColor White
