@@ -23,6 +23,7 @@ scoop bucket add dev-bucket https://github.com/devscoop-labs/scoop
 
 Write-Host "[+] Installing devscoop-wire packages..." -ForegroundColor White
 scoop install devscoop-wire
+Wire
 
 Write-Host ""
 Write-Host "==========================================================" -ForegroundColor Green
