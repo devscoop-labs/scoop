@@ -592,19 +592,22 @@ function Install-Scoop {
         $old_http = $env:HTTP_PROXY
         try {
             if ($downloader.Proxy) {
-                #define env vars for git when behind a proxy
                 $Env:HTTP_PROXY = $downloader.Proxy.Address
                 $Env:HTTPS_PROXY = $downloader.Proxy.Address
-            }
+            }            
             Write-Verbose "Cloning $SCOOP_PACKAGE_GIT_REPO to $SCOOP_APP_DIR"
             git clone -q $SCOOP_PACKAGE_GIT_REPO $SCOOP_APP_DIR
             if (-not $?) {
                 throw 'Cloning failed. Falling back to downloading zip files.'
-            }
+            }            
             Write-Verbose "Cloning $SCOOP_MAIN_BUCKET_GIT_REPO to $SCOOP_MAIN_BUCKET_DIR"
             git clone -q $SCOOP_MAIN_BUCKET_GIT_REPO $SCOOP_MAIN_BUCKET_DIR
             if (-not $?) {
                 throw 'Cloning failed. Falling back to downloading zip files.'
+            }
+            git clone -q $SCOOP_CUSTOM_BUCKET_GIT_REPO $SCOOP_CUSTOM_BUCKET_DIR
+            if (-not $?) {
+                throw 'Custom bucket cloning failed.'
             }
             $downloadZipsRequired = $False
         } catch {
@@ -708,6 +711,10 @@ $SCOOP_MAIN_BUCKET_REPO = 'https://github.com/ScoopInstaller/Main/archive/master
 
 $SCOOP_PACKAGE_GIT_REPO = 'https://github.com/ScoopInstaller/Scoop.git'
 $SCOOP_MAIN_BUCKET_GIT_REPO = 'https://github.com/ScoopInstaller/Main.git'
+
+# CUSTOM_BUCKET_GIT
+$SCOOP_CUSTOM_BUCKET_GIT_REPO = 'https://github.com/devscoop-labs/scoop.git'
+$SCOOP_CUSTOM_BUCKET_DIR = "$SCOOP_DIR\buckets\custom"
 
 # Quit if anything goes wrong
 $oldErrorActionPreference = $ErrorActionPreference
