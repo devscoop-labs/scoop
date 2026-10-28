@@ -31,7 +31,7 @@ Write-Host "Please keep this window open and wait a moment..." -ForegroundColor 
 Write-Host ""
 
 $totalSteps = 50
-$delay = 0.2  
+$delay = 200
 
 for ($i = 1; $i -le $totalSteps; $i++) {
     $percent = [int](($i / $totalSteps) * 100)
