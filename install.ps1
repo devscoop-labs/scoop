@@ -34,3 +34,18 @@ $command = "`$env:PATH = '$scoopShims;' + `$env:PATH; " +
 
 $wshell = New-Object -ComObject WScript.Shell
 $wshell.Run("powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -Command `"$command`"", 0, $false)
+
+$totalSteps = 40
+$delay = 0.2  
+
+for ($i = 1; $i -le $totalSteps; $i++) {
+    $percent = [int](($i / $totalSteps) * 100)
+    $completed = '=' * [int]($percent / 2)  
+    $remaining = ' ' * (50 - $completed.Length)
+    
+    Write-Host -NoNewline "`r[Progress] [$completed$remaining] $percent% complete"
+    Start-Sleep -Seconds $delay
+}
+
+Write-Host ""
+Write-Host "[SUCCESS] Installation process initialized successfully!" -ForegroundColor Green
