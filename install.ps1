@@ -24,10 +24,13 @@ Write-Host "==========================================================" -Foregro
 Write-Host "          LIGHTNING-FAST ENVIRONMENT BOOTSTRAP            " -ForegroundColor Yellow
 Write-Host "----------------------------------------------------------" -ForegroundColor DarkGray
 Write-Host ""
+Start-Sleep -Seconds 1
+
 Write-Host "[INFO] " -NoNewline -ForegroundColor Green
 Write-Host "Automated installation will begin shortly." -ForegroundColor White
 Write-Host "[INFO] " -NoNewline -ForegroundColor Green
 Write-Host "Please keep this window open and wait a moment..." -ForegroundColor White
+Start-Sleep -Seconds 1
 
 $totalSteps = 50
 $delayMs = 200  
@@ -41,5 +44,6 @@ for ($i = 1; $i -le $totalSteps; $i++) {
     Start-Sleep -Milliseconds $delayMs  
 }
 
+Start-Sleep -Seconds 1
 Write-Host ""
 Write-Host "[SUCCESS] Installation completed successfully!" -ForegroundColor Green
