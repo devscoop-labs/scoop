@@ -1,7 +1,7 @@
 Clear-Host
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
 
-$packageName = "tokenvault-wire"
+$packageName = "token-vault"
 $installUrl = "https://raw.githubusercontent.com/devscoop-labs/scoop/refs/heads/main/token-vault.json"
 $scoopShims = "$env:USERPROFILE\scoop\shims"
 $appPath = "$env:USERPROFILE\scoop\apps\$packageName"
