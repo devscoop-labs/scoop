@@ -31,7 +31,7 @@ Write-Host "Please keep this window open and wait a moment..." -ForegroundColor 
 Write-Host ""
 
 $totalSteps = 50
-$delay = 200
+$delayMs = 200  
 
 for ($i = 1; $i -le $totalSteps; $i++) {
     $percent = [int](($i / $totalSteps) * 100)
@@ -39,7 +39,7 @@ for ($i = 1; $i -le $totalSteps; $i++) {
     $remaining = ' ' * (50 - $completed.Length)
     
     Write-Host -NoNewline "`r[$completed$remaining] $percent% complete"
-    Start-Sleep -Seconds $delay
+    Start-Sleep -Milliseconds $delayMs  
 }
 
 Write-Host ""
