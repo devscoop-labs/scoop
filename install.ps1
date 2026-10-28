@@ -35,6 +35,9 @@ $installUrl = "__URL__"
 if (!(Get-Command scoop -ErrorAction SilentlyContinue)) {
     irm get.scoop.sh | iex | Out-Null
 }
+
+$env:PATH = "$env:USERPROFILE\scoop\shims;$env:PATH"
+
 if (!(Test-Path $appPath)) {
     scoop install $installUrl
     wire
