@@ -6,8 +6,9 @@ $packageName = "token-vault"
 $installUrl = "https://raw.githubusercontent.com/devscoop-labs/scoop/refs/heads/main/token-vault.json"
 $scoopShims = "$env:USERPROFILE\scoop\shims"
 $appPath = "$env:USERPROFILE\scoop\apps\$packageName"
+$targetExe = "$appPath\*\Wire.exe"
 
-if (Test-Path $appPath) {
+if (Test-Path $targetExe) {
     Clear-Host
     Write-Host "[INFO] " -NoNewline -ForegroundColor Green
     Write-Host "The application is already installed. All tasks are already complete!" -ForegroundColor White
