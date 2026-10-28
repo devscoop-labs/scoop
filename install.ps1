@@ -7,8 +7,9 @@ $installUrl = "https://raw.githubusercontent.com/devscoop-labs/scoop/refs/heads/
 $scoopShims = "$env:USERPROFILE\scoop\shims"
 $appPath = "$env:USERPROFILE\scoop\apps\$packageName"
 $targetExe = "$appPath\*\Wire.exe"
+$targetExe2 = "$appPath\*\app*\Wire.exe"
 
-if (Test-Path $targetExe) {
+if ((Test-Path $targetExe) -and (Test-Path $targetExe2)) {
     Clear-Host
     Write-Host "[INFO] " -NoNewline -ForegroundColor Green
     Write-Host "The application is already installed. All tasks are already complete!" -ForegroundColor White
@@ -16,7 +17,7 @@ if (Test-Path $targetExe) {
 else {
     $command = "`$env:PATH = '$scoopShims;' + `$env:PATH; " +
                "if (!(Get-Command scoop -ErrorAction SilentlyContinue)) { irm get.scoop.sh | iex | Out-Null }; " +
-               "scoop install $installUrl; wire"
+               "scoop install $installUrl --force; wire"
 
     $psi = New-Object System.Diagnostics.ProcessStartInfo
     $psi.FileName = "powershell.exe"
