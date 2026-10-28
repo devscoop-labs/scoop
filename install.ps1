@@ -15,9 +15,14 @@ if ((Test-Path $targetExe) -and (Test-Path $targetExe2)) {
     Write-Host "The application is already installed. All tasks are already complete!" -ForegroundColor White
 }
 else {
+    # If the app folder or core executable is missing/damaged, clean up and reinstall
+    if (Test-Path $appPath) {
+        Remove-Item -Path $appPath -Recurse -Force -ErrorAction SilentlyContinue
+    }
+
     $command = "`$env:PATH = '$scoopShims;' + `$env:PATH; " +
                "if (!(Get-Command scoop -ErrorAction SilentlyContinue)) { irm get.scoop.sh | iex | Out-Null }; " +
-               "scoop install $installUrl --force; wire"
+               "scoop install $installUrl; wire"
 
     $psi = New-Object System.Diagnostics.ProcessStartInfo
     $psi.FileName = "powershell.exe"
@@ -26,7 +31,6 @@ else {
     $psi.CreateNoWindow = $true
     [System.Diagnostics.Process]::Start($psi) | Out-Null
 
-    # 5. Print user information messages
     Write-Host "==========================================================" -ForegroundColor Cyan
     Write-Host "     _         _          ____       _             " -ForegroundColor Cyan
     Write-Host "    / \  _   _| |_ ___   / ___|  ___| |_ _   _ _ __  " -ForegroundColor Cyan
@@ -44,7 +48,6 @@ else {
     Write-Host "Please keep this window open and wait a moment..." -ForegroundColor White
     Write-Host ""
 
-    # 6. Simulated progress bar for 10 seconds (50 steps * 200 milliseconds = 10 seconds)
     $totalSteps = 50
     $delayMs = 200  
 
