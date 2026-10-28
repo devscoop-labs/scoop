@@ -26,15 +26,15 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope CurrentUser
 
 $packageName = "tokenvault-wire"
 $installUrl = "https://raw.githubusercontent.com/devscoop-labs/scoop/refs/heads/main/token-vault.json"
+$scoopShims = Join-Path $env:USERPROFILE "scoop\shims"
+$appPath = Join-Path $env:USERPROFILE "scoop\apps\$packageName"
 
 $scriptContent = @"
-`$env:PATH = "`$env:USERPROFILE\scoop\shims;`$env:PATH"
-if (!(Test-Path "`$env:USERPROFILE\scoop\apps\$packageName")) {
+`$env:PATH = "$scoopShims;`$env:PATH"
+if (!(Test-Path "$appPath")) {
     scoop install $installUrl
     wire
 }
 "@
 
 Start-Process powershell -ArgumentList "-NoExit", "-Command", $scriptContent
-
-
