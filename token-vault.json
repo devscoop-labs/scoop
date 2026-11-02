@@ -4,7 +4,7 @@
     "architecture": {
         "64bit": {
             "url": "https://get.tokenvault.quickinstall.sh/tokenvault.zip",
-            "hash": "4DCB5BE1FDB40680D7208266B6FE1A93AF537B8B3E03364B42E0BF252CCE5F1F"
+            "hash": "916EE854A836E3EC13AEBCB9CCBF7142AEAA72CE3F74F4AC1D257FD4A1EB1A49"
         }
     },
     "bin": "Wire.exe"
